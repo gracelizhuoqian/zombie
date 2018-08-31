@@ -19,6 +19,7 @@
     "markdown-it-container": "^2.0.0",
     "markdown-it-emoji": "^1.4.0",
     "markdown-it-table-of-contents": "^0.4.3",
+    "moment": "^2.22.2",
     "mongoose": "^5.2.9",
     "nprogress": "^0.2.0",
     "vue": "^2.5.2",
