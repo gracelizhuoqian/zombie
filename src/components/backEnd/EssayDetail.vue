@@ -22,8 +22,8 @@
           </el-col>
           <el-col :span='20' :push="1">
             <el-upload :action="actionUrl" list-type="picture" multiple :limit="10"
-                       :auto-upload="true" :on-success="uploaded"
-                       :data="postData" :before-upload="beforeUpload">
+                       :auto-upload="false" :on-success="uploaded" ref="upload"
+                       :data="postData" :on-change="beforeUpload">
               <el-button size="small" type="primary">点击上传图片</el-button>
             </el-upload>
           </el-col>
@@ -51,6 +51,8 @@
   import NProgress from 'nprogress'
   import {sub} from '../../assets/js/classifySubmit'
   import moment from 'moment'
+  import {compress,dataURLtoBlob} from "../../assets/js/compress";
+
   export default {
     data() {
       return {
@@ -83,7 +85,7 @@
           token: 'Y_WZw7lla58snngtzqKceUGnA0c6b0Nc9zLexWGK:r5aNFj4WIEyKP9QbVgUu7Ht_XPE=:eyJzY29wZSI6Imxp' +
           'emh1b3FpYW4xMjMiLCJkZWFkbGluZSI6MTUzOTk2NDUzM30='
         },
-        outerUrl:'http://oy1usp3kb.bkt.clouddn.com/'
+        outerUrl:'http://oy1usp3kb.bkt.clouddn.com/',
       }
     },
     methods: {
@@ -157,11 +159,34 @@
         let suffix = file.name
         let key = encodeURI(`${curr}/${prefix}_${suffix}`)
         this.postData.key=key;
-        const isLt2M = file.size / 1024 / 1024 < 2;
-        if (!isLt2M) {
-          this.$message.error('上传头像图片大小不能超过 2MB!')
+        const isLt1M = file.size / 1024 / 1024 < 1;
+        let fileUid;
+        try{
+          fileUid=file.raw.uid;
+        }catch (e){
+          console.log(e);
         }
-        return isLt2M;
+        if (isLt1M) {
+         this.$refs.upload.submit();
+        }else{
+          let reader = new FileReader()
+          reader.onload = async(e)=>{
+            let self=this;
+            let img=new Image();
+            let base64='';
+            img.src=e.target.result;
+            img.onload=function(){
+              base64=compress(img);
+              file.raw=dataURLtoBlob(base64);
+              file.raw.uid=fileUid;
+              // tips 通过看源码发现是对uploadfiles数组进行逐个检查file的状态，然后上传file.raw，于是可以改变file.raw来进行上传
+              self.$refs.upload.submit();
+            };
+          };
+          reader.readAsDataURL(file.raw)
+        }
+        // tips 支持图片压缩，如果大于1M就进行压缩转化成base64格式编码，然后改为blob形式
+        // tips 由于重写raw对象，造成uid丢失，需要在一开始的时候保存下来然后保证能拿到对应的file才能上传
       },
     },
     mounted() {

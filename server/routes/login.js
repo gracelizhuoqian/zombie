@@ -13,7 +13,8 @@ router.post('/login', function (req, res, next) {
         // 用户名存在通过验证
         res.json({
           code: 200,
-          token: createToken(name)
+          token: createToken(name),
+          userName:name
         });
       } else {
         // 用户名或者密码错误没有通过验证，要么重新输入，要么点击注册()

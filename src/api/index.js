@@ -127,5 +127,17 @@ export default {
   //更新一篇随笔
   updateEssay(params){
     return instance.post('/api/essay/edit',params);
+  },
+  // 获取一篇文章的评论
+  getComment(params){
+    return instance.post('/api/comment/lists',params);
+  },
+  // 创建评论
+  createComment(param){
+    return front_instance.post('/api/comment/create',param);
+  },
+  // 删除评论
+  removeComment(param){
+    return instance.post('/api/comment/remove',param);
   }
 }

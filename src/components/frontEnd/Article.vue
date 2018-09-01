@@ -11,12 +11,13 @@
       <section v-html="oneArticle.contentToMark" class="home_main"></section>
       <button class="return" @click="goback"><- RETURN</button>
     </article>
+    <comment></comment>
   </div>
 </template>
 
 <script>
   import api from '../../api'
-
+  import comment from './Comment'
   export default {
     data() {
       return {
@@ -25,6 +26,7 @@
         time:'',
       }
     },
+    components:{comment},
     methods:{
       getArticle(){
         api.getOneArticleNoAuth({id: this.$route.params.id})

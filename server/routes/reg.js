@@ -19,7 +19,8 @@ router.post('/reg', function (req, res, next) {
       res.send({
         // 创建用户成功
         code: 200,
-        token: createToken(name)
+        token: createToken(name),
+        userName:name
         //创建token只需要用户名，创建并发送给用户
       })
     })

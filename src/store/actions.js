@@ -8,7 +8,8 @@ export default {
     api.localReg(data)
       .then(({data})=>{
         if(data.code==200){
-          commit('USER_REG',data.token)
+          commit('USER_REG',data.token);
+          commit('SAVE_NAME',data.userName);
           router.replace({path:'/admin'})
         }else{
           //  上一个catch处理了MongoError
@@ -25,7 +26,8 @@ export default {
       .then(({data})=>{
         if(data.code==200){
           // 找到用户
-          commit('USER_LOGIN',data.token)
+          commit('USER_LOGIN',data.token);
+          commit('SAVE_NAME',data.userName);
           router.replace({path:'/admin/articleList'})
         }else{
           // 没找到用户或者密码不对

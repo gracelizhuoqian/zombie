@@ -70,6 +70,7 @@
         })
           .then(() => {
             this.$store.commit('USER_LOGOUT');
+            this.$store.commit('CLEAR_NAME');
             this.$router.push({path: '/login'})
           })
           .catch(() => {
