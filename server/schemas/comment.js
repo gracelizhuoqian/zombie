@@ -5,8 +5,7 @@ const commentSchema=new mongoose.Schema({
   time:String,
   content:String,
   user:String,
-  to:String,
-  reply:Array
+  reply:[{ body: String, date: String, from:String, to:String}]
 });
 
 commentSchema.statics={
@@ -19,6 +18,14 @@ commentSchema.statics={
   },
   getComment:function(articleId){
     return this.find({article:articleId});
+  },
+  // 更新回复
+  updateReply:function(commentId,r){
+    return this.findOne({_id:commentId})
+      .then((comment)=>{
+        comment.reply.push(r);
+        comment.save();
+      })
   }
 }
 module.exports=commentSchema;

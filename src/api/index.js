@@ -139,5 +139,9 @@ export default {
   // 删除评论
   removeComment(param){
     return instance.post('/api/comment/remove',param);
+  },
+  // 更新回复
+  addReply(param){
+    return front_instance.post('/api/comment/reply',param);
   }
 }

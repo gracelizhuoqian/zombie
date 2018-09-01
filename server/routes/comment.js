@@ -56,5 +56,24 @@ router.post('/comment/lists', function (req, res, next) {
       })
     })
 })
-
+router.post('/comment/reply',function(req,res,next){
+  let commentId=req.body.id;
+  let reply=req.body.reply;
+  api.updateReply(commentId,reply)
+    .then((result)=>{
+      console.log(res);
+      if(result){
+        res.send({
+          code:200,
+          message:'回复成功'
+        })
+      }
+    })
+    .catch(e=>{
+      res.send({
+        code:-200,
+        message:e.toString()
+      })
+    })
+})
 module.exports = router;
