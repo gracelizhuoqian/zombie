@@ -14,9 +14,11 @@ export default {
     state.token=null;
   },
   [SAVE_NAME](state,name){
+    storage.setItem('name',name);
     state.name=name;
   },
   [CLEAR_NAME](state){
+    storage.removeItem('name');
     state.name='';
   }
 }

@@ -11,7 +11,7 @@
       <section v-html="oneArticle.contentToMark" class="home_main"></section>
       <button class="return" @click="goback"><- RETURN</button>
     </article>
-    <comment></comment>
+    <comment :articleId="$route.params.id"></comment>
   </div>
 </template>
 

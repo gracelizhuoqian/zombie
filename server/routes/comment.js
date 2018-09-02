@@ -5,11 +5,12 @@ const checkToken = require('../middleware/checkToken');
 // 创建
 router.post('/comment/create', function (req, res, next) {
   api.createComment(req.body)
-    .then((data) => {
-      if (data && data.comment) {
+    .then((comment) => {
+      if (comment) {
         res.send({
           code: 200,
-          message: '回复成功'
+          message: '回复成功',
+          comment
         })
       } else {
         throw new Error('创建失败');
@@ -58,16 +59,18 @@ router.post('/comment/lists', function (req, res, next) {
 })
 router.post('/comment/reply',function(req,res,next){
   let commentId=req.body.id;
-  let reply=req.body.reply;
-  api.updateReply(commentId,reply)
-    .then((result)=>{
-      console.log(res);
-      if(result){
+  let r={
+    from:req.body.from,
+    to:req.body.to,
+    body:req.body.body,
+    date:req.body.date
+  }
+  api.updateReply(commentId,r)
+    .then(()=>{
         res.send({
           code:200,
           message:'回复成功'
         })
-      }
     })
     .catch(e=>{
       res.send({

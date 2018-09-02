@@ -130,7 +130,7 @@ export default {
   },
   // 获取一篇文章的评论
   getComment(params){
-    return instance.post('/api/comment/lists',params);
+    return front_instance.post('/api/comment/lists',params);
   },
   // 创建评论
   createComment(param){

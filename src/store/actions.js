@@ -1,7 +1,8 @@
 import api from '../api/index'
 import router from '../router'
 import MsgAlert from './msgAlert'
-import {USER_LOGIN} from "./types";
+import {USER_LOGIN} from "./types"
+import storage from '../assets/js/cookieStorage'
 export default {
 // 后台注册
   UserReg({commit},data){
@@ -28,7 +29,11 @@ export default {
           // 找到用户
           commit('USER_LOGIN',data.token);
           commit('SAVE_NAME',data.userName);
-          router.replace({path:'/admin/articleList'})
+          if(storage.getItem("logUrl")){
+            router.replace({path:storage.getItem('logUrl')});
+          }else{
+            router.replace({path:'/admin/articleList'})
+          }
         }else{
           // 没找到用户或者密码不对
           MsgAlert(data.message)

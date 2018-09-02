@@ -5,4 +5,5 @@ module.exports = function (app){
   app.use('/api',require('./article'));
   app.use('/api',require('./essay'));
   app.use('/api',require('./classify'));
+  app.use('/api',require('./comment'));
 }

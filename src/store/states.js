@@ -5,7 +5,9 @@ export default {
   get token() {
     return isLoggedIn() || null
   },
-  name:''
+  get name() {
+    return storage.getItem('name')||''
+  }
 }
 
 // tips 能够动态检测是否有token，防止删除或失效后时候还继续使用，个人认为只能验证是否有token和解析出来时间没失效但是不能验证本身的正确性

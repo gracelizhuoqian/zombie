@@ -17,7 +17,7 @@ commentSchema.statics={
     return this.deleteOne({_id:Id});
   },
   getComment:function(articleId){
-    return this.find({article:articleId});
+    return this.find({article:articleId}).sort({'_id':-1});
   },
   // 更新回复
   updateReply:function(commentId,r){

@@ -15,7 +15,8 @@
           <div class="emoji-body" v-if="openEmoji">
             <ul class="emoji-items">
               <li class="OwO-item" v-for="(oitem,index) in emojilist" :key="'oitem'+index" @click="choseEmoji(oitem.title)">
-                <img :src="require(`../../assets/img/emoji/${oitem.url}`)">
+                <!--<img :src="require(`../../assets/img/emoji/${oitem.url}`)">-->
+                <img :src="'../static/img/emoji/'+oitem.url" alt="">
                 <!--tips 解决动态解析图片路径问题-->
               </li>
             </ul>
@@ -109,6 +110,7 @@
     methods:{
       submit(){
         this.$emit('submitComment',this.content);
+        this.content='';
       },
       choseEmoji(title){
         this.content+=`[${title}]`;
