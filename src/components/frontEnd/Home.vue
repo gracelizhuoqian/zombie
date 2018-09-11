@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="home">
-    <div class="bg"><img src="http://oy1usp3kb.bkt.clouddn.com/back1.jpg" alt="bg"></div>
+    <div class="bg"><img src="http://oy1usp3kb.bkt.clouddn.com/background.jpg" alt="bg"></div>
     <h1>THE NEST OF SMALL ZOMBIE</h1>
     <p class="motto">This is my kindom. <br>If I don't fight for it, <br>who will?</p>
   </div>
